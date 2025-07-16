@@ -71,6 +71,7 @@ rawLog = open("sample-log.log", "r")
 
 # create csv
 out = open("trafficLog.csv", "w")
+out.write("ip,country,time,request,status,size,blank,agent,num")
 
 # write csv file
 for l in rawLog:
