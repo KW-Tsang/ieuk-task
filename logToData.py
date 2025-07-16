@@ -1,3 +1,6 @@
+
+## coverts a single log into a list of fields
+
 def lineToRecord(line: str) -> list[str] :
     fields = []
     chari = 0
@@ -17,7 +20,12 @@ def lineToRecord(line: str) -> list[str] :
     fields.append(part[0])
     chari = part[1] + 3
 
-    # request
+    # request type
+    part = getField(line, chari, ' ')
+    fields.append(part[0])
+    chari = part[1] + 1
+
+    # requessted page
     part = getField(line, chari, '"')
     fields.append('"'+ part[0] +'"')
     chari = part[1] + 2
@@ -51,6 +59,8 @@ def lineToRecord(line: str) -> list[str] :
     
     return fields
 
+## iterates through the line until the stop char is reached
+
 def getField(line: str, i: int, stop: str) -> tuple[str, int]:
     buffer = ""
     while (line[i] != stop):
@@ -71,11 +81,12 @@ rawLog = open("sample-log.log", "r")
 
 # create csv
 out = open("trafficLog.csv", "w")
-out.write("ip,country,time,request,status,size,blank,agent,num")
+out.write("ip,country,time,request,page,status,size,blank,agent,num\n")
 
 # write csv file
 for l in rawLog:
     out.write(",".join(lineToRecord(l)))
 
+# close files
 rawLog.close()
 out.close()
