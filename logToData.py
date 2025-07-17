@@ -6,67 +6,72 @@ def lineToRecord(line: str) -> list[str] :
     chari = 0
 
     # get IP address
-    part = getField(line, chari, ' ')
+    part = extractField(line, chari, ' ')
     fields.append(part[0])
     chari = part[1] + 3
 
     # country code
-    part = getField(line, chari, ' ')
+    part = extractField(line, chari, ' ')
     fields.append(part[0])
     chari = part[1] + 4
     
     # time
-    part = getField(line, chari, ']')
+    part = extractField(line, chari, ']')
     fields.append(part[0])
     chari = part[1] + 3
 
     # request type
-    part = getField(line, chari, ' ')
+    part = extractField(line, chari, ' ')
     fields.append(part[0])
     chari = part[1] + 1
 
     # requessted page
-    part = getField(line, chari, '"')
+    part = extractField(line, chari, '"')
     fields.append('"'+ part[0] +'"')
     chari = part[1] + 2
 
     # status
-    part = getField(line, chari, ' ')
+    part = extractField(line, chari, ' ')
     fields.append(part[0])
     chari = part[1] + 1
 
     # 1234
-    part = getField(line, chari, ' ')
+    part = extractField(line, chari, ' ')
     fields.append(part[0])
     chari = part[1] + 2
 
     # blank
-    part = getField(line, chari, '"')
+    part = extractField(line, chari, '"')
     fields.append(part[0])
     chari = part[1] + 3
 
     # agent
-    part = getField(line, chari, '"')
+    part = extractField(line, chari, '"')
     fields.append('"'+ part[0] +'"')
     chari = part[1] + 2
 
     # num
-    buffer = ""
-    while (chari < len(line)):
-        buffer += line[chari]
-        chari += 1
-    fields.append(buffer)
+    part = extractField(line, chari, '"')
+    fields.append(part[0])
     
     return fields
 
 ## iterates through the line until the stop char is reached
 
-def getField(line: str, i: int, stop: str) -> tuple[str, int]:
+def extractField(line: str, i: int, stop: str) -> tuple[str, int]:
+    # clean input
+    if line == "" or i < 0:
+        return ("", 0)
+    
+    if len(stop) > 1 :
+        stop = stop[0]
+
     buffer = ""
-    while (line[i] != stop):
+    while (i < len(line) and line[i] != stop):
         buffer += line[i]
         i += 1
     #print(i, " ", len(buffer))
+
     return (buffer, i)
 
 '''
@@ -85,7 +90,10 @@ out.write("ip,country,time,request,page,status,size,blank,agent,num\n")
 
 # write csv file
 for l in rawLog:
-    out.write(",".join(lineToRecord(l)))
+    try:
+        out.write(",".join(lineToRecord(l)))
+    except:
+        break
 
 # close files
 rawLog.close()
