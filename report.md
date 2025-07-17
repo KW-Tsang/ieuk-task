@@ -5,17 +5,17 @@ Looking at the IPs that sent the most requests in the log period, we can see tha
 
 ![Top 20 most frequently requesting ips](screenshots/ip_counts.png)
 
-What we first found suspicious was that all of the requests from the 3rd most active IP were all made consecutively looking at the raw log file. They also seemed to ocurr within an exact; 30-minute time period starting from the hour:
+What we first found suspicious was that all of the requests from the 3rd most active IP were all made consecutively, looking at the raw log file. They also seemed to occur within an exact 30-minute time period starting from the hour:
 
 ![First set of logs from the 3d most active ip](screenshots/us_logs_1.png)
 
 ![Last set of logs from the 3d most active ip](screenshots/us_logs_2.png)
 
-Though this is certainly bot behaviour, it's possible that this may be a result of a kind of stress test on the server rather than malicious outside traffic. Bu that of course depends on how the comapny operates.
+Though this is certainly bot behaviour, it's possible that this may be a result of a kind of stress test on the server rather than malicious outside traffic. But that of course depends on how the company operates.
 
-For the 194 IPs, we the following were the most visited:
+For the 194 IPs, the following were the most visited:
 
-![Most visited pages from the 194 ips](screenshots/uk_ips.png)
+![Most visited pages from the 194 IPs](screenshots/uk_ips.png)
 
 These appear to line up with some but not all of the most visited pages in the full period, the top 24 of which are abnormally higher than the rest:
 
@@ -23,15 +23,15 @@ These appear to line up with some but not all of the most visited pages in the f
 
 Looking into what IPs were visiting these pages, we indeed found the 194 IPs:
 
-![Most visiting ips for the most visited page](screenshots/traffic_ep.png)
+![Most visiting IPs for the most visited page](screenshots/traffic_ep.png)
 
 This unusual spread of pages being visited (e.g. a specific "episode" being viewed) does suggest that this may be external bot behaviour unnecessaraly taking up company resources.
 
-However, the most concerning behaviour found was from the 185 ips which appeared to all be tryig to log into an admin page via brute force:
+However, the most concerning behaviour found was from the 185 IPs which appeared to all be trying to log into an admin page via brute force:
 
-![Visiting pages from the 185 ips from the most visited page](screenshots/logins.png)
+![Visiting pages from the 185 IPs from the most visited page](screenshots/logins.png)
 
-This of course indicates an atempted attack on the site.
+This, of course, indicates an attempted attack on the site.
 
 ## Solutions
 
